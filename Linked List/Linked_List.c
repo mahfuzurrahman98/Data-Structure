@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -72,6 +71,50 @@ Node *Pop_Front(Node *head) {
   return head;
 }
 
+Node *insertNode(Node *head, int pos, int x) {
+  int len = listSize(head);
+  if (pos < 0 && pos >= len) {
+    printf("Invalid position!\n");
+    return head;
+  }
+
+  int i = 0;
+  Node *curNode = head;
+  while (i < pos) {
+    curNode = curNode->link;
+    i++;
+  }
+
+  Node *newNode = createNode(x, NULL);
+  newNode->link = curNode->link;
+  curNode->link = newNode;
+
+  return head;
+}
+
+Node *deleteNode(Node *head, int pos) {
+  int len = listSize(head);
+  if (pos < 0 && pos >= len) {
+    printf("Invalid position!\n");
+    return head;
+  }
+  if (pos == 0) {
+    return Pop_Front(head);
+  }
+
+  int i = 0;
+  Node *curNode = head;
+  while (i < pos - 1) {
+    curNode = curNode->link;
+    i++;
+  }
+  Node *temp = curNode->link;
+  curNode->link = curNode->link->link;
+  free(temp);
+
+  return head;
+}
+
 void traverse(Node *head) {
   Node *i = head;
   while (i != NULL) {
@@ -81,7 +124,7 @@ void traverse(Node *head) {
   printf("\n");
 }
 
-int Length(Node *head) {
+int listSize(Node *head) {
   Node *i = head;
   int sz = 0;
   while (i != NULL) {
