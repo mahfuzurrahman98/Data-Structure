@@ -35,6 +35,12 @@ void dequeue(Queue *x) {
     printf("Queue Underflow!\n"); //removing not possible
     return;
   }
+  if (x->SIZE == 1 && x->Front == x->Rear) { 
+    // in case front and rear get the same position
+    // and queue has only one element left
+    printf("value: %d is popped!\n", x->arr[x->Front]);
+    x->Front = x->Rear = -1, x->SIZE = 0; // get back to the initial state
+  }
   printf("value: %d is popped!\n", x->arr[x->Front]);
   x->Front++, x->SIZE--; //increase Front pointer & decrease size
 }
