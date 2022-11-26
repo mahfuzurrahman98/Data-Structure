@@ -29,6 +29,12 @@ void dequeue() {
     printf("Queue Underflow!\n"); //removing not possible
     return;
   }
+  if (Q_size == 1 && Front == Rear) {
+    // in case front and rear get the same position
+    // and queue has only one element left
+    printf("value: %d is popped!\n", Q[Front]);
+    Front = Rear = -1, Q_size = 0; // get back to the initial state
+  }
   printf("value: %d is popped!\n", Q[Front]);
   Front++, Q_size--; //increase Front pointer & decrease size
 }
